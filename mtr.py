@@ -147,7 +147,7 @@ class MtrApp(QMainWindow):
     """
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("PythonMTR - Network Diagnostic Tool")
+        self.setWindowTitle("Synapse - Network Diagnostic Tool")
         self.setWindowIcon(QIcon("icon.png"))
         self.worker = None
         self.config_file = "conf.json"
