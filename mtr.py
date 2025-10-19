@@ -19,6 +19,16 @@ import logging
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import IP, ICMP, sr1
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 class MtrWorker(QThread):
     """
     Handles all network operations (traceroute and ping) in a background thread
@@ -147,14 +157,14 @@ class MtrApp(QMainWindow):
     """
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("PythonMTR - Network Diagnostic Tool")
-        self.setWindowIcon(QIcon("icon.png"))
+        self.setWindowTitle("Synapse - Network Diagnostic Tool")
+        self.setWindowIcon(QIcon(resource_path("icon.ico")))
         self.worker = None
         self.config_file = "conf.json"
         self.config = {}
 
         # Set a default size and center the window before loading any settings
-        self.resize(700, 750)
+        self.resize(800, 800)
         self.center_window()
 
         # --- UI Setup ---
@@ -191,8 +201,8 @@ class MtrApp(QMainWindow):
         self.background_label = QLabel()
         self.background_label.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
         self.background_label.setScaledContents(True)
-        if os.path.exists("back.png"):
-            pixmap = QPixmap("back.png")
+        if os.path.exists(resource_path("back.png")):
+            pixmap = QPixmap(resource_path("back.png"))
             self.background_label.setPixmap(pixmap)
             self.background_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         else:
