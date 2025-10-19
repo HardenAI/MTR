@@ -1,6 +1,6 @@
 # Synapse MTR - Network Diagnostic Tool
 
-![Icon](icon.png)
+![Icon](back.png)
 
 A graphical network diagnostic tool for Windows, inspired by the functionality of `mtr`. This application provides a real-time analysis of the network path to a specified host by combining the features of `traceroute` and `ping` into a single, easy-to-use interface.
 
