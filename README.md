@@ -1,4 +1,4 @@
-# PythonMTR - Network Diagnostic Tool
+# Synapse MTR - Network Diagnostic Tool
 
 ![Icon](icon.png)
 
