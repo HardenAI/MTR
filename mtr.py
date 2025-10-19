@@ -459,10 +459,19 @@ class MtrApp(QMainWindow):
 
     def closeEvent(self, event):
         """
-        Handles the window close event. Saves the configuration and ensures
+        Handles the window close event. Saves the window geometry and ensures
         the worker thread is stopped cleanly.
         """
-        self.save_config()
+        # --- Bug Fix: Only save geometry on close, not the server list ---
+        try:
+            # Update the geometry in the existing config object
+            self.config["geometry"] = self.saveGeometry().toHex().data().decode('ascii')
+            # Write the updated config back to the file
+            with open(self.config_file, 'w') as f:
+                json.dump(self.config, f, indent=4)
+        except IOError as e:
+            self.status_bar.showMessage(f"Error saving config: {e}", 5000)
+
         if self.worker and self.worker.isRunning():
             self.worker.stop()
             self.worker.wait()
